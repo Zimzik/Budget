@@ -35,4 +35,15 @@
     <string name="from_gallery">From gallary</string>
     <string name="from_camera">From camera</string>
     <string name="access_denied">Access denied</string>
+    <string name="edit">Edit</string>
+    <string name="financial_info">Financial info</string>
+    <string name="member_info">Member info</string>
+    <string name="plus_money">+ money</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="money">Money</string>
+    <string name="add_new_membership_free">Add new membership free:</string>
+    <string name="info_successfully_saved_on_db">Information successfully saved on DB</string>
+    <string name="total">Total:</string>
+    <string name="are_you_shure_to_delete_period">Are you sure to delete this period?</string>
 </resources>

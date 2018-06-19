@@ -134,6 +134,7 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
                         intent.putExtra(MEMBER_KEY, myJson);
                         startActivity(intent);
                     }, m -> deleteMemberFromDB(m));
+                    mMemberListAdapter = listAdapter;
                     mRecyclerView.setAdapter(listAdapter);
                 }, throwable -> Log.i(TAG, getString(R.string.get_all_members_error)));
     }
