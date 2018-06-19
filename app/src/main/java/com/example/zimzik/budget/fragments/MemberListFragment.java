@@ -2,6 +2,8 @@ package com.example.zimzik.budget.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.example.zimzik.budget.data.db.AppDB;
 import com.example.zimzik.budget.data.db.models.Member;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -41,6 +44,7 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
     private RecyclerView mRecyclerView;
     private AppDB mDB;
     private static final String MEMBER_KEY = "member";
+    private static final String DIRNAME = "avatarsDir";
     private static final String TAG = MemberListFragment.class.getSimpleName();
 
     public MemberListFragment() {
@@ -48,9 +52,9 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
     }
 
     public static MemberListFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         MemberListFragment fragment = new MemberListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -133,7 +137,10 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
                         String myJson = gson.toJson(m);
                         intent.putExtra(MEMBER_KEY, myJson);
                         startActivity(intent);
-                    }, m -> deleteMemberFromDB(m));
+                    }, m -> {
+                        deleteAvatarImageFromStorage(m);
+                        deleteMemberFromDB(m);
+                    });
                     mMemberListAdapter = listAdapter;
                     mRecyclerView.setAdapter(listAdapter);
                 }, throwable -> Log.i(TAG, getString(R.string.get_all_members_error)));
@@ -152,6 +159,15 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
         });
         builder.setCancelable(true);
         builder.show();
+    }
+
+    private void deleteAvatarImageFromStorage(Member member) {
+        if (member.getTimeIdent() != 0) {
+            ContextWrapper cw = new ContextWrapper(getContext());
+            File directory = cw.getDir(DIRNAME, Context.MODE_PRIVATE);
+            File file = new File(directory.getAbsolutePath(), member.getTimeIdent() + ".jpg");
+            file.delete();
+        }
     }
 
     // calculate age

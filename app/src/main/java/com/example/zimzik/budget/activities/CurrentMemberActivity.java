@@ -1,5 +1,7 @@
 package com.example.zimzik.budget.activities;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,6 +20,8 @@ import com.example.zimzik.budget.fragments.CurrentMemberFinInfoFragment;
 import com.example.zimzik.budget.fragments.CurrentMemberInfoFragment;
 import com.google.gson.Gson;
 
+import java.io.File;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -29,6 +33,7 @@ public class CurrentMemberActivity extends AppCompatActivity {
     private AppDB mDB;
     private Gson mGson = new Gson();
     private final String KEY_MEMBER = "member";
+    private static final String DIRNAME = "avatarsDir";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +63,7 @@ public class CurrentMemberActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.cm_menu_edit) {
-            Intent intent = new Intent(this, EditMember.class);
+            Intent intent = new Intent(this, EditMemberActivity.class);
             intent.putExtra(KEY_MEMBER, mGson.toJson(mMember));
             startActivityForResult(intent, 1);
         } else if (item.getItemId() == R.id.cm_menu_delete) {
@@ -97,11 +102,23 @@ public class CurrentMemberActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.delete, (dialogInterface, i) -> mDB.getMemberRepo().delete(mMember)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::finish));
+                .subscribe(() -> {
+                    deleteAvatarImageFromStorage();
+                    finish();
+                }));
         builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
 
         });
         builder.setCancelable(true);
         builder.show();
+    }
+
+    private void deleteAvatarImageFromStorage() {
+        if (mMember.getTimeIdent() != 0) {
+            ContextWrapper cw = new ContextWrapper(this);
+            File directory = cw.getDir(DIRNAME, Context.MODE_PRIVATE);
+            File file = new File(directory.getAbsolutePath(), mMember.getTimeIdent() + ".jpg");
+            file.delete();
+        }
     }
 }

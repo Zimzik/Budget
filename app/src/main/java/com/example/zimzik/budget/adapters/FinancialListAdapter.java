@@ -35,7 +35,6 @@ public class FinancialListAdapter extends RecyclerView.Adapter<FinancialListAdap
     public void onBindViewHolder(FinancialListAdapter.ViewHolder holder, int position) {
         final Period period = mPeriods.get(position);
         holder.year.setText(String.valueOf(period.getYear()));
-        //holder.month.setText(Months.values()[period.getMonthNum()].toString());
         holder.month.setText(Helper.getLocatedMonth(mContext)[period.getMonthNum()].toString());
         holder.money.setText(String.valueOf(period.getMoney()));
         holder.itemView.setOnLongClickListener(v -> {

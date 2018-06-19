@@ -198,18 +198,18 @@ public class CurrentMemberFinInfoFragment extends Fragment {
 
     private void ignoreOrUpdate(Period period) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
-        builder.setMessage("Information for the current month is present in the DB. Do you want to update this?");
-        builder.setPositiveButton("Update", (dialogInterface, i) -> mDB.getPeriodRepo()
+        builder.setMessage(R.string.information_present_on_db);
+        builder.setPositiveButton(R.string.update, (dialogInterface, i) -> mDB.getPeriodRepo()
                 .updateMonth(period)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
-                    Toast.makeText(getContext(), "Information successfully updated!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.information_successfully_updated, Toast.LENGTH_LONG).show();
                     refreshTable();
                 }));
 
 
-        builder.setNegativeButton("Cancel", (dialogInterface, i) -> {
+        builder.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
 
         });
         builder.setCancelable(true);
@@ -222,7 +222,7 @@ public class CurrentMemberFinInfoFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
-                    Toast.makeText(getContext(), "Period successfully delete!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.period_successfully_deleted, Toast.LENGTH_LONG).show();
                     refreshTable();
                 });
     }

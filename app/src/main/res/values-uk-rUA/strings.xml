@@ -46,4 +46,9 @@
     <string name="info_successfully_saved_on_db">Інформація успішно збережена в БД</string>
     <string name="total">Total:</string>
     <string name="are_you_shure_to_delete_period">Ви впевнені що хочете видалити цей період?</string>
+    <string name="information_present_on_db">Інформація по даному місяцю вже є в базі даних. Ви хочете її оновити?</string>
+    <string name="information_successfully_updated">Інформацію успішно оновлено</string>
+    <string name="period_successfully_deleted">Період успішно видалено</string>
+    <string name="update">Оновити</string>
+    <string name="edit_member">Редагування анкети</string>
 </resources>
