@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/main" />
+
+    <item
+        android:id="@+id/navigation_member_list"
+        android:icon="@drawable/ic_list_black_24dp"
+        android:title="@string/members" />
+
+    <item
+        android:id="@+id/navigation_revenues"
+        android:icon="@drawable/ic_trending_up_black_24dp"
+        android:title="@string/revenues" />
+
+    <item
+        android:id="@+id/navigation_divergence"
+        android:icon="@drawable/ic_trending_down_black_24dp"
+        android:title="@string/divergence" />
+
+
+</menu>

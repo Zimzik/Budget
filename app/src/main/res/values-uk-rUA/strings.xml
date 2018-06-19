@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Бюджет</string>
+    <string name="main">Головна</string>
+    <string name="members">Хористи</string>
+    <string name="revenues">Доходи</string>
+    <string name="divergence">Розходи</string>
+</resources>
