@@ -1,6 +1,8 @@
 package com.example.zimzik.budget.adapters;
 
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -15,6 +18,7 @@ import com.example.zimzik.budget.R;
 import com.example.zimzik.budget.data.db.models.Member;
 import com.example.zimzik.budget.fragments.MemberListFragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +28,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
     private ClickAction<Member> mOnClickListener;
     private ClickAction<Member> mOnContextMenuClick;
     private Context mContext;
+    private static final String DIRNAME = "avatarsDir";
 
     public MemberListAdapter(List<Member> membersList, ClickAction<Member> onClickListener, ClickAction<Member> onContextMenuClick) {
         this.mMemberList = membersList;
@@ -44,7 +49,8 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
     public void onBindViewHolder(MemberListAdapter.ViewHolder holder, int position) {
         final Member member = mFilteredMembersList.get(position);
         holder.name.setText(member.toString());
-        holder.age.setText(MemberListFragment.calculateAge(member.getBirthday()) + mContext.getString(R.string.yo));
+        holder.age.setText(MemberListFragment.calculateAge(member.getBirthday()) + " " + mContext.getString(R.string.yo));
+        loadImageFromStorage(holder.avatar, member);
         holder.digit.setOnClickListener(view -> {
             PopupMenu menu = new PopupMenu(view.getContext(), holder.digit);
             menu.inflate(R.menu.member_list_context_menu);
@@ -99,12 +105,14 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         final TextView name, age, digit;
+        final ImageView avatar;
 
         ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.tv_name);
             age = view.findViewById(R.id.tv_age);
             digit = view.findViewById(R.id.tv_option_digit);
+            avatar = view.findViewById(R.id.iv_avatar);
         }
 
         @Override
@@ -112,6 +120,18 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
 
         }
     }
+
+    private void loadImageFromStorage(ImageView imageView, Member member) {
+        ContextWrapper cw = new ContextWrapper(mContext);
+        File directory = cw.getDir(DIRNAME, Context.MODE_PRIVATE);
+        File file = new File(directory.getAbsolutePath(), member.getTimeIdent() + ".jpg");
+        if (file.exists()) {
+            imageView.setImageURI(Uri.fromFile(file));
+        } else {
+            imageView.setImageResource(R.drawable.ic_round_account_button_with_user_inside);
+        }
+    }
+
 
     public interface ClickAction<T> {
         void call(T object);

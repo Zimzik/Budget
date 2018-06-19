@@ -141,7 +141,7 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
     // delete member from db method
     private void deleteMemberFromDB(Member m) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(getString(R.string.are_you_shure) + m.getLastName() + " " + m.getFirstName() + getString(R.string.from_db));
+        builder.setMessage(getString(R.string.are_you_shure) + m.getLastName() + " " + m.getFirstName() + " " + getString(R.string.from_db));
         builder.setPositiveButton(R.string.delete, (dialogInterface, i) -> mDB.getMemberRepo().delete(m)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

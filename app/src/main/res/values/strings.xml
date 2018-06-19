@@ -25,4 +25,14 @@
     <string name="get_all_members_error">Something wrong with getting members from DB!</string>
     <string name="digit">⋮</string>
     <string name="yo">y.o.</string>
+    <string name="first_name">First name</string>
+    <string name="second_name">Second name</string>
+    <string name="birthday">Birthday</string>
+    <string name="phone_number">Phone number</string>
+    <string name="save">Save</string>
+    <string name="this_field_is_empty">This field is empty!</string>
+    <string name="new_member_success">New member succesfully saved on DB</string>
+    <string name="from_gallery">From gallary</string>
+    <string name="from_camera">From camera</string>
+    <string name="access_denied">Access denied</string>
 </resources>

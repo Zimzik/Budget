@@ -46,4 +46,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.4'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    implementation 'com.github.abdularis:CircularImageView:v1.2'
 }

@@ -25,4 +25,14 @@
     <string name="get_all_members_error">Проблема при отриманні списку членів з БД</string>
     <string name="digit">⋮</string>
     <string name="yo">р.</string>
+    <string name="first_name">Ім\'я</string>
+    <string name="second_name">Прізвище</string>
+    <string name="birthday">День народження</string>
+    <string name="phone_number">Номер телефону</string>
+    <string name="save">Зберегти</string>
+    <string name="this_field_is_empty">Це поле не заповнене!</string>
+    <string name="new_member_success">Нового члена успішно збережено в БД</string>
+    <string name="from_gallery">Вибрати з галереї</string>
+    <string name="from_camera">Зробити фото</string>
+    <string name="access_denied">Доступ закрито</string>
 </resources>
