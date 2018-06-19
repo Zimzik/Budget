@@ -13,6 +13,7 @@ import com.example.zimzik.budget.R;
 public class ExpensesFragment extends Fragment {
 
     public ExpensesFragment() {
+        // Required empty public constructor
     }
 
     @Nullable

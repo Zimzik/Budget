@@ -12,6 +12,7 @@ import com.example.zimzik.budget.R;
 
 public class IncomesFragment extends Fragment {
     public IncomesFragment() {
+        // Required empty public constructor
     }
 
     public static IncomesFragment newInstance() {

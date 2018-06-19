@@ -4,4 +4,25 @@
     <string name="members">Members</string>
     <string name="revenues">Incomes</string>
     <string name="divergence">Expenses</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    <string name="new_member">New member</string>
+    <string name="search">Search</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_shure">"Are you shure to delete "</string>
+    <string name="from_db">from DB?</string>
+    <string name="get_all_members_error">Something wrong with getting members from DB!</string>
+    <string name="digit">⋮</string>
+    <string name="yo">y.o.</string>
 </resources>
