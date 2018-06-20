@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.IncomesFragment">
+
+    <Button
+        android:id="@+id/add_money_btn_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plus_money"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/tableHeadCells"
+        android:text="@string/date"
+        android:layout_marginTop="16dp"
+        android:id="@+id/tv_date_header"
+        app:layout_constraintTop_toBottomOf="@id/add_money_btn_income"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/guideline"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <TextView
+        style="@style/tableHeadCells"
+        android:text="@string/description"
+        app:layout_constraintTop_toTopOf="@id/tv_date_header"
+        app:layout_constraintLeft_toLeftOf="@id/guideline"
+        app:layout_constraintRight_toRightOf="@id/guideline2"/>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <TextView
+        app:layout_constraintTop_toTopOf="@id/tv_date_header"
+        app:layout_constraintLeft_toLeftOf="@id/guideline2"
+        app:layout_constraintRight_toRightOf="parent"
+        style="@style/tableHeadCells"
+        android:text="@string/money" />
+
+    <TextView
+        style="@style/tableHeadCells"
+        android:layout_marginStart="1dp"
+        android:layout_weight="3"
+        android:text="@string/money" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_incomes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/tv_total_summ_income"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_header">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_total_summ_income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_periods" />
+
+</android.support.constraint.ConstraintLayout>

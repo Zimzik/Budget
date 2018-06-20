@@ -24,7 +24,7 @@ public class IncomeRepo {
     }
 
     public Completable deleteIncome(Income income) {
-        return Completable.fromAction(() -> deleteIncome(income));
+        return Completable.fromAction(() -> mIncomeDao.deleteIncome(income));
     }
 
     public Single<List<Income>> getAll() {

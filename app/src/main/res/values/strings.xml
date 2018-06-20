@@ -51,4 +51,10 @@
     <string name="period_successfully_deleted">Period successfully delete!</string>
     <string name="update">Update</string>
     <string name="edit_member">Edit member</string>
+    <string name="minus_money">- Money</string>
+    <string name="date">Date</string>
+    <string name="description">Description</string>
+    <string name="add_new_income">Add new revenue</string>
+    <string name="income_successfully_saved">Revenue successfully saved!</string>
+    <string name="income_successfully_deleted">Revenue successfully deleted!</string>
 </resources>

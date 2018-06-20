@@ -1,4 +1,5 @@
 package com.example.zimzik.budget.adapters;
 
-public class ExpenseListAdapter {
+public class ExpenseListAdapter  {
+
 }

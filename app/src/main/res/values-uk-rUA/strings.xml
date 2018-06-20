@@ -51,4 +51,10 @@
     <string name="period_successfully_deleted">Період успішно видалено</string>
     <string name="update">Оновити</string>
     <string name="edit_member">Редагування анкети</string>
+    <string name="minus_money">- Гроші</string>
+    <string name="date">Дата</string>
+    <string name="description">Опис</string>
+    <string name="add_new_income">Новий дохід</string>
+    <string name="income_successfully_saved">Дохід успішно збережений</string>
+    <string name="income_successfully_deleted">Дохід успішно видалено</string>
 </resources>
