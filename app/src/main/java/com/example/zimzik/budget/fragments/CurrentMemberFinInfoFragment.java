@@ -156,10 +156,8 @@ public class CurrentMemberFinInfoFragment extends Fragment {
         mMonthSpinner = view.findViewById(R.id.months_spinner);
         mYearsSpinner = view.findViewById(R.id.years_spinner);
         mEtMoney = view.findViewById(R.id.et_money);
-
-        // adapters for spinners
-        ArrayAdapter<CharSequence> monthAdapter = ArrayAdapter.createFromResource(getContext(), R.array.months_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> yearsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.years_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, Helper.getLocatedMonth(getContext()));
+        ArrayAdapter<CharSequence> yearsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.years_array, android.R.layout.simple_spinner_dropdown_item);
 
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
