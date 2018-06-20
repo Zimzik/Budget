@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class CurrentMemberInfoFragment extends Fragment {
     private TextView mTvPhoneNumber;
     private ImageView mAvatar;
     private final Gson mGson = new Gson();
-    private static final String KEY_MEMBER = "KEY_MEMBER";
+    private static final String KEY_MEMBER = "member";
     private static final String DIRNAME = "avatarsDir";
 
     public CurrentMemberInfoFragment() {
@@ -87,5 +88,10 @@ public class CurrentMemberInfoFragment extends Fragment {
         } else {
             mAvatar.setImageResource(R.drawable.ic_round_account_button_with_user_inside);
         }
+    }
+
+    public void refreshData(Member member) {
+        mMember = member;
+        setAllFields(mMember);
     }
 }

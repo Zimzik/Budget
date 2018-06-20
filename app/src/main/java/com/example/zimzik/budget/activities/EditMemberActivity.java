@@ -202,10 +202,12 @@ public class EditMemberActivity extends AppCompatActivity implements DatePickerD
             mMember.setLastName(secondName);
             mMember.setPhoneNumber(Long.valueOf(stringPhoneNumber));
             mMember.setBirthday(mBirthday.getTime());
-            try {
-                mMember.setTimeIdent(saveAvatarToInternalStorage());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (mNewAvatarUri != null) {
+                try {
+                    mMember.setTimeIdent(saveAvatarToInternalStorage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             mDB.getMemberRepo().update(mMember)
                     .subscribeOn(Schedulers.io())
@@ -213,7 +215,7 @@ public class EditMemberActivity extends AppCompatActivity implements DatePickerD
                     .subscribe(() -> {
                         Intent intent = new Intent();
                         String newMember = mGson.toJson(mMember);
-                        intent.putExtra("mMember", newMember);
+                        intent.putExtra("member", newMember);
                         setResult(RESULT_OK, intent);
                         Toast.makeText(this, getString(R.string.information_successfully_updated), Toast.LENGTH_LONG).show();
                         finish();
@@ -222,35 +224,30 @@ public class EditMemberActivity extends AppCompatActivity implements DatePickerD
     }
 
     private long saveAvatarToInternalStorage() throws IOException {
-        if (mNewAvatarUri != null) {
-            File oldAvatarFile = new File(mCurrentAvatarUri.getPath());
-            oldAvatarFile.delete();
-            long timeIdent = new Date().getTime();
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mNewAvatarUri);
+        File oldAvatarFile = new File(mCurrentAvatarUri.getPath());
+        oldAvatarFile.delete();
+        long timeIdent = new Date().getTime();
+        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mNewAvatarUri);
 
-            ContextWrapper cw = new ContextWrapper(getApplicationContext());
-            File directory  = cw.getDir(DIRNAME, Context.MODE_PRIVATE);
-            File mypath = new File(directory, timeIdent + ".jpg");
-            OutputStream fos = null;
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir(DIRNAME, Context.MODE_PRIVATE);
+        File mypath = new File(directory, timeIdent + ".jpg");
+        OutputStream fos = null;
 
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             try {
-                fos = new FileOutputStream(mypath);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.flush();
-                Toast.makeText(this, "Saved to: " + directory.getAbsolutePath(), Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
+                fos.close();
+            } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
-            return timeIdent;
-        } else {
-            return 0;
         }
+        return timeIdent;
     }
 
     private void onAvatarClick(View view) {

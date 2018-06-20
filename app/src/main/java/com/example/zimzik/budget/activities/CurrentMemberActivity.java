@@ -82,7 +82,8 @@ public class CurrentMemberActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data != null) {
             mMember = mGson.fromJson(data.getStringExtra(KEY_MEMBER), Member.class);
-            Fragment fragment = mAdapter.getItem(1);
+            CurrentMemberInfoFragment fragment = (CurrentMemberInfoFragment) mAdapter.getItem(1);
+            fragment.refreshData(mMember);
         }
     }
 
