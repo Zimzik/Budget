@@ -63,6 +63,7 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMemberListAdapter = new MemberListAdapter(null, null, null);
         mDB = AppDB.getsInstance(getContext());
         setHasOptionsMenu(true);
     }

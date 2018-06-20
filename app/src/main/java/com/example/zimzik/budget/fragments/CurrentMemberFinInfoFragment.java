@@ -4,25 +4,24 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zimzik.budget.Helper;
 import com.example.zimzik.budget.R;
 import com.example.zimzik.budget.adapters.FinancialListAdapter;
 import com.example.zimzik.budget.data.db.AppDB;
 import com.example.zimzik.budget.data.db.models.Member;
 import com.example.zimzik.budget.data.db.models.Period;
+import com.example.zimzik.budget.fragments.dialog_fragments.AddMembershipFreeFragment;
 import com.google.gson.Gson;
 
 import java.util.Collections;
@@ -39,13 +38,6 @@ public class CurrentMemberFinInfoFragment extends Fragment {
     private FinancialListAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private TextView mTvTotalSumm;
-
-    // for dialog
-    private int mMonthNum;
-    private int mYear;
-    private int mMoney;
-    private Spinner mMonthSpinner, mYearsSpinner;
-    private EditText mEtMoney;
 
     public CurrentMemberFinInfoFragment() {
     }
@@ -89,32 +81,17 @@ public class CurrentMemberFinInfoFragment extends Fragment {
 
     @SuppressLint("CheckResult")
     private void addMoneyButtonClick() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setView(setDialogView())
-                .setMessage(R.string.add_new_membership_free)
-                .setPositiveButton(getString(R.string.save), (dialog, which) -> {
-
-                })
-                .setNegativeButton(getString(R.string.cancel), null);
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            if (mEtMoney.getText().toString().isEmpty()) {
-                mEtMoney.setError(getString(R.string.this_field_is_empty));
-            } else {
-                mMoney = Integer.valueOf(mEtMoney.getText().toString());
-                Period period = new Period(mYear, mMonthNum, mMoney, mMember.getUid());
-                mDB.getPeriodRepo().insertMonth(period)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(() -> {
-                            Toast.makeText(getContext(), R.string.info_successfully_saved_on_db, Toast.LENGTH_LONG).show();
-                            mEtMoney.setText("");
-                        }, __ -> ignoreOrUpdate(period));
-                dialog.dismiss();
-                refreshTable();
-            }
+        DialogFragment newMembershipDialog = AddMembershipFreeFragment.newInstance(mMember.getUid(), period -> {
+            mDB.getPeriodRepo().insertMonth(period)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> {
+                        Toast.makeText(getContext(), R.string.info_successfully_saved_on_db, Toast.LENGTH_LONG).show();
+                        refreshTable();},
+                            __ -> ignoreOrUpdate(period));
         });
+
+        newMembershipDialog.show(getFragmentManager(), "newMembershipDialiog");
     }
 
     @SuppressLint("CheckResult")
@@ -132,7 +109,7 @@ public class CurrentMemberFinInfoFragment extends Fragment {
                     for (Period p : periods) {
                         summ += p.getMoney();
                     }
-                    String s = getString(R.string.total) + summ;
+                    String s = getString(R.string.total) + " " + summ;
                     mTvTotalSumm.setText(s);
                     mAdapter = new FinancialListAdapter(periods, period -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -149,51 +126,6 @@ public class CurrentMemberFinInfoFragment extends Fragment {
                     mRecyclerView.setAdapter(mAdapter);
                 });
     }
-
-    private View setDialogView() {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_new_membership, null);
-        mMonthSpinner = view.findViewById(R.id.months_spinner);
-        mYearsSpinner = view.findViewById(R.id.years_spinner);
-        mEtMoney = view.findViewById(R.id.et_money);
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, Helper.getLocatedMonth(getContext()));
-        ArrayAdapter<CharSequence> yearsAdapter = ArrayAdapter.createFromResource(getContext(), R.array.years_array, android.R.layout.simple_spinner_dropdown_item);
-
-        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        mMonthSpinner.setAdapter(monthAdapter);
-        mYearsSpinner.setAdapter(yearsAdapter);
-
-        // get number  of month
-        mMonthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mMonthNum = i;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        // get mYear
-        mYearsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mYear = Integer.valueOf(adapterView.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        return view;
-    }
-
     private void ignoreOrUpdate(Period period) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
         builder.setMessage(R.string.information_present_on_db);
@@ -224,5 +156,4 @@ public class CurrentMemberFinInfoFragment extends Fragment {
                     refreshTable();
                 });
     }
-
 }

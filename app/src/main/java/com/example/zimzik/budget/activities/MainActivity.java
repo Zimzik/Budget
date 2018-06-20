@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
                 setActionBarTitle(getResources().getString(R.string.members));
                 setFragment(MemberListFragment.newInstance(), ft);
                 return true;
-            case R.id.navigation_revenues:
+            case R.id.navigation_incomes:
                 setActionBarTitle(getResources().getString(R.string.revenues));
                 setFragment(IncomesFragment.newInstance(), ft);
                 return true;
-            case R.id.navigation_divergence:
+            case R.id.navigation_expenses:
                 setActionBarTitle(getResources().getString(R.string.divergence));
                 setFragment(ExpensesFragment.newInstance(), ft);
                 return true;

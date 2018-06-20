@@ -284,7 +284,6 @@ public class NewMemberActivity extends AppCompatActivity implements DatePickerDi
                 fos = new FileOutputStream(mypath);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.flush();
-                Toast.makeText(this, "Saved to: " + directory.getAbsolutePath(), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

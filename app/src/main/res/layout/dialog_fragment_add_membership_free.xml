@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <Spinner
+        android:id="@+id/years_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/months_spinner" />
+
+    <Spinner
+        android:id="@+id/months_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/years_spinner"
+        app:layout_constraintRight_toLeftOf="@id/et_membership" />
+
+    <EditText
+        android:id="@+id/et_membership"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_marginTop="8dp"
+        android:hint="@string/money"
+        app:layout_constraintTop_toBottomOf="@id/years_spinner"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/save_membership_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#fff"
+        android:text="@string/save"
+        android:textColor="#FF4081"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_membership" />
+
+    <Button
+        android:id="@+id/cancel_new_membership_btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:text="@string/cancel"
+        android:textColor="#FF4081"
+        app:layout_constraintRight_toLeftOf="@id/save_membership_btn"
+        app:layout_constraintTop_toTopOf="@id/save_membership_btn" />
+
+</android.support.constraint.ConstraintLayout>

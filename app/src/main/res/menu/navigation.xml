@@ -12,12 +12,12 @@
         android:title="@string/members" />
 
     <item
-        android:id="@+id/navigation_revenues"
+        android:id="@+id/navigation_incomes"
         android:icon="@drawable/ic_trending_up_black_24dp"
         android:title="@string/revenues" />
 
     <item
-        android:id="@+id/navigation_divergence"
+        android:id="@+id/navigation_expenses"
         android:icon="@drawable/ic_trending_down_black_24dp"
         android:title="@string/divergence" />
 

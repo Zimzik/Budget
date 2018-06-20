@@ -44,7 +44,7 @@
     <string name="money">Гроші</string>
     <string name="add_new_membership_free">Додати новий збір</string>
     <string name="info_successfully_saved_on_db">Інформація успішно збережена в БД</string>
-    <string name="total">Total:</string>
+    <string name="total">Всього: </string>
     <string name="are_you_shure_to_delete_period">Ви впевнені що хочете видалити цей період?</string>
     <string name="information_present_on_db">Інформація по даному місяцю вже є в базі даних. Ви хочете її оновити?</string>
     <string name="information_successfully_updated">Інформацію успішно оновлено</string>

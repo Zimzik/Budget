@@ -44,7 +44,7 @@
     <string name="money">Money</string>
     <string name="add_new_membership_free">Add new membership free:</string>
     <string name="info_successfully_saved_on_db">Information successfully saved on DB</string>
-    <string name="total">Total:</string>
+    <string name="total">Total: </string>
     <string name="are_you_shure_to_delete_period">Are you sure to delete this period?</string>
     <string name="information_present_on_db">Information for the current month is present in the DB. Do you want to update this?</string>
     <string name="information_successfully_updated">Information successfully updated!</string>
