@@ -142,7 +142,7 @@ public class EditMemberActivity extends AppCompatActivity implements DatePickerD
         mTvBirthday.setText(sdf.format(mBirthday));
         mEtFirstName.setText(mMember.getFirstName());
         mEtSecondName.setText(mMember.getLastName());
-        mEtPhoneNumber.setText(String.valueOf(mMember.getPhoneNumber()));
+        mEtPhoneNumber.setText(mMember.getPhoneNumber());
         setAvatarIcon();
     }
 
@@ -200,7 +200,7 @@ public class EditMemberActivity extends AppCompatActivity implements DatePickerD
         } else {
             mMember.setFirstName(firstName);
             mMember.setLastName(secondName);
-            mMember.setPhoneNumber(Long.valueOf(stringPhoneNumber));
+            mMember.setPhoneNumber(stringPhoneNumber);
             mMember.setBirthday(mBirthday.getTime());
             if (mNewAvatarUri != null) {
                 try {
@@ -224,8 +224,10 @@ public class EditMemberActivity extends AppCompatActivity implements DatePickerD
     }
 
     private long saveAvatarToInternalStorage() throws IOException {
-        File oldAvatarFile = new File(mCurrentAvatarUri.getPath());
-        oldAvatarFile.delete();
+        if (mCurrentAvatarUri != null) {
+            File oldAvatarFile = new File(mCurrentAvatarUri.getPath());
+            oldAvatarFile.delete();
+        }
         long timeIdent = new Date().getTime();
         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mNewAvatarUri);
 

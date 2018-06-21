@@ -12,10 +12,10 @@ public class Member {
     private String firstName;
     private String lastName;
     private long birthday;
-    private long phoneNumber;
+    private String phoneNumber;
     private long timeIdent;
 
-    public Member(String firstName, String lastName, long birthday, long phoneNumber, long timeIdent) {
+    public Member(String firstName, String lastName, long birthday, String phoneNumber, long timeIdent) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
@@ -55,11 +55,11 @@ public class Member {
         this.birthday = birthday;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -83,10 +83,10 @@ public class Member {
         Member member = (Member) o;
         return uid == member.uid &&
                 birthday == member.birthday &&
-                phoneNumber == member.phoneNumber &&
                 timeIdent == member.timeIdent &&
                 Objects.equals(firstName, member.firstName) &&
-                Objects.equals(lastName, member.lastName);
+                Objects.equals(lastName, member.lastName) &&
+                Objects.equals(phoneNumber, member.phoneNumber);
     }
 
     @Override

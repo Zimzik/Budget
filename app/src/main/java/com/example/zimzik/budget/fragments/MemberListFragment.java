@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.zimzik.budget.R;
 import com.example.zimzik.budget.activities.CurrentMemberActivity;
@@ -154,7 +155,10 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
         builder.setPositiveButton(R.string.delete, (dialogInterface, i) -> mDB.getMemberRepo().delete(m)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::refreshList));
+                .subscribe(() -> {
+                    Toast.makeText(getContext(), R.string.member_successfully_delete, Toast.LENGTH_LONG).show();
+                    refreshList();
+                }));
         builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
 
         });

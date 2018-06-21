@@ -97,7 +97,7 @@ public class IncomesFragment extends Fragment {
                     mTvTotalSumm.setText(s);
                     mAdapter = new IncomeListAdapter(incomes, income -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage(R.string.are_you_shure_to_delete_period);
+                        builder.setMessage(R.string.are_you_sure_to_delete_this_income);
                         builder.setPositiveButton(getString(R.string.delete), (dialog, which) -> deleteIncomeFromDB(income));
                         builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
 

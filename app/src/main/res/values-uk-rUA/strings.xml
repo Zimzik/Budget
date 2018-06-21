@@ -2,8 +2,8 @@
     <string name="app_name">Бюджет</string>
     <string name="main">Головна</string>
     <string name="members">Хористи</string>
-    <string name="revenues">Доходи</string>
-    <string name="divergence">Розходи</string>
+    <string name="revenues">Прибутки</string>
+    <string name="divergence">Витрати</string>
     <string name="january">Січень</string>
     <string name="february">Лютий</string>
     <string name="march">Березень</string>
@@ -54,9 +54,14 @@
     <string name="minus_money">- Гроші</string>
     <string name="date">Дата</string>
     <string name="description">Опис</string>
-    <string name="add_new_income">Новий дохід</string>
-    <string name="income_successfully_saved">Дохід успішно збережено</string>
-    <string name="income_successfully_deleted">Дохід успішно видалено</string>
+    <string name="add_new_income">Новий прибуток</string>
+    <string name="income_successfully_saved">Прибуток успішно збережено</string>
+    <string name="income_successfully_deleted">Прибуток успішно видалено</string>
     <string name="add_new_expense">Нова витрата</string>
     <string name="expense_successfully_saved">Витрату успішно збережено</string>
+    <string name="are_you_sure_to_delete_this_income">Ви впевнені що хочете видалити цей прибуток?</string>
+    <string name="are_you_sure_to_delete_this_expense">Ви впевнені що хочете видалити цю витрату?</string>
+    <string name="expense_succesfully_saved">Витрату успішно видалено</string>
+    <string name="member_successfully_delete">Члена успішно видалено</string>
+    <string name="sorry_cannot_call">Вибачте, ви не можете зробити виклик</string>
 </resources>

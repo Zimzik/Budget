@@ -67,7 +67,7 @@ public class NewMemberActivity extends AppCompatActivity implements DatePickerDi
         setContentView(R.layout.activity_new_member);
 
         Context that = this;
-         mRxPermissions = new RxPermissions(this);
+        mRxPermissions = new RxPermissions(this);
 
         //Init EditTexts
         mEtFirstName = findViewById(R.id.et_first_name);
@@ -182,7 +182,7 @@ public class NewMemberActivity extends AppCompatActivity implements DatePickerDi
         } else {
             //Create new thread to save data on DB
             try {
-                mDB.getMemberRepo().insertAll(new Member(firstName, secondName, mBirthday.getTime(), Long.valueOf(strintPhoneNumber), saveAvatarToInternalStorage()))
+                mDB.getMemberRepo().insertAll(new Member(firstName, secondName, mBirthday.getTime(), strintPhoneNumber, saveAvatarToInternalStorage()))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {

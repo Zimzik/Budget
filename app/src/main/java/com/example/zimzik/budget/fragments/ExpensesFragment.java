@@ -103,7 +103,7 @@ public class ExpensesFragment extends Fragment {
                     mTvTotalSumm.setText(s);
                     mAdapter = new ExpenseListAdapter(expenses, expense -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage(R.string.are_you_shure_to_delete_period);
+                        builder.setMessage(R.string.are_you_sure_to_delete_this_expense);
                         builder.setPositiveButton(getString(R.string.delete), (dialog, which) -> deleteExpenseFromDB(expense));
                         builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
 
@@ -122,7 +122,7 @@ public class ExpensesFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
-                    Toast.makeText(getContext(), R.string.income_successfully_deleted, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.expense_succesfully_saved, Toast.LENGTH_LONG).show();
                     refreshTable();
                 });
     }

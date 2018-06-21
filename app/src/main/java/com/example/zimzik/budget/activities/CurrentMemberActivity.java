@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.zimzik.budget.R;
 import com.example.zimzik.budget.adapters.ViewPagerAdapter;
@@ -105,6 +106,7 @@ public class CurrentMemberActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     deleteAvatarImageFromStorage();
+                    Toast.makeText(this, R.string.member_successfully_delete, Toast.LENGTH_LONG).show();
                     finish();
                 }));
         builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {

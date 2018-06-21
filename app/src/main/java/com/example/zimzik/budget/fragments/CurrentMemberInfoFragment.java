@@ -1,7 +1,10 @@
 package com.example.zimzik.budget.fragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,10 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zimzik.budget.R;
 import com.example.zimzik.budget.data.db.models.Member;
 import com.google.gson.Gson;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -31,6 +36,11 @@ public class CurrentMemberInfoFragment extends Fragment {
     private final Gson mGson = new Gson();
     private static final String KEY_MEMBER = "member";
     private static final String DIRNAME = "avatarsDir";
+    private static final int CALL_PHONE = 1;
+    private RxPermissions mRxPermissions;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.CALL_PHONE
+    };
 
     public CurrentMemberInfoFragment() {
     }
@@ -46,6 +56,7 @@ public class CurrentMemberInfoFragment extends Fragment {
         if (getArguments() != null) {
             mMember = mGson.fromJson(getArguments().getString(KEY_MEMBER), Member.class);
         }
+        mRxPermissions = new RxPermissions(getActivity());
     }
 
     @Nullable
@@ -56,6 +67,22 @@ public class CurrentMemberInfoFragment extends Fragment {
         mTextView = view.findViewById(R.id.cm_tv_name);
         mTvAge = view.findViewById(R.id.cm_tv_age);
         mTvPhoneNumber = view.findViewById(R.id.cm_tv_phone_number);
+        mTvPhoneNumber.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("CheckResult")
+            @Override
+            public void onClick(View v) {
+                mRxPermissions
+                        .request(Manifest.permission.CALL_PHONE)
+                        .subscribe(granted -> {
+                            if (granted) {
+                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mMember.getPhoneNumber()));
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getContext(), R.string.sorry_cannot_call, Toast.LENGTH_LONG).show();
+                            }
+                        });
+            }
+        });
         setAllFields(mMember);
         return view;
     }
@@ -63,11 +90,11 @@ public class CurrentMemberInfoFragment extends Fragment {
     private void setAllFields(Member member) {
         String name = member.getLastName() + " " + member.getFirstName();
         String age = String.format("%s (%d)", new SimpleDateFormat("dd.MM.yyyy").format(new Date(member.getBirthday())).toString(), MemberListFragment.calculateAge(member.getBirthday()));
-        long phoneNumber = member.getPhoneNumber();
+        String phoneNumber = member.getPhoneNumber();
         setAvatarIcon(member);
         mTextView.setText(name);
         mTvAge.setText(age);
-        mTvPhoneNumber.setText(String.valueOf(phoneNumber));
+        mTvPhoneNumber.setText(phoneNumber);
     }
 
     public static CurrentMemberInfoFragment newInstance(Member member) {

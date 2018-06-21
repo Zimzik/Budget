@@ -59,4 +59,9 @@
     <string name="income_successfully_deleted">Income successfully deleted!</string>
     <string name="add_new_expense">Add new expense</string>
     <string name="expense_successfully_saved">Expense successfully saved</string>
+    <string name="are_you_sure_to_delete_this_income">Are you shure to delete this income?</string>
+    <string name="are_you_sure_to_delete_this_expense">Are you sure to delete this expense?</string>
+    <string name="expense_succesfully_saved">Expense successfully saved</string>
+    <string name="member_successfully_delete">Member successfully delete!</string>
+    <string name="sorry_cannot_call">Sorry, you can\'t make a call</string>
 </resources>
