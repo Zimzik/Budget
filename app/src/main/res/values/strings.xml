@@ -54,7 +54,9 @@
     <string name="minus_money">- Money</string>
     <string name="date">Date</string>
     <string name="description">Description</string>
-    <string name="add_new_income">Add new revenue</string>
-    <string name="income_successfully_saved">Revenue successfully saved!</string>
-    <string name="income_successfully_deleted">Revenue successfully deleted!</string>
+    <string name="add_new_income">Add new income</string>
+    <string name="income_successfully_saved">Income successfully saved!</string>
+    <string name="income_successfully_deleted">Income successfully deleted!</string>
+    <string name="add_new_expense">Add new expense</string>
+    <string name="expense_successfully_saved">Expense successfully saved</string>
 </resources>

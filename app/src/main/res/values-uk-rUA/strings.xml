@@ -55,6 +55,8 @@
     <string name="date">Дата</string>
     <string name="description">Опис</string>
     <string name="add_new_income">Новий дохід</string>
-    <string name="income_successfully_saved">Дохід успішно збережений</string>
+    <string name="income_successfully_saved">Дохід успішно збережено</string>
     <string name="income_successfully_deleted">Дохід успішно видалено</string>
+    <string name="add_new_expense">Нова витрата</string>
+    <string name="expense_successfully_saved">Витрату успішно збережено</string>
 </resources>

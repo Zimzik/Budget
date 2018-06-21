@@ -24,12 +24,12 @@ public class AddIncomeDialogFragment extends android.support.v4.app.DialogFragme
     private TextView mTvDate;
 
     private Date mIncomeDate;
-    private static SaveIncome<Income> sSaveRevenue;
+    private static SaveIncome<Income> sSaveIncome;
 
     public static final String DATEPICKER_TAG = "datepicker";
 
     public static AddIncomeDialogFragment newInstance(SaveIncome<Income> saveIncome) {
-        sSaveRevenue = saveIncome;
+        sSaveIncome = saveIncome;
 
         Bundle args = new Bundle();
 
@@ -117,7 +117,7 @@ public class AddIncomeDialogFragment extends android.support.v4.app.DialogFragme
             }
         } else {
             Income income = new Income(mEtDescription.getText().toString(), Integer.valueOf(mEtMoney.getText().toString()), mIncomeDate.getTime());
-            sSaveRevenue.call(income);
+            sSaveIncome.call(income);
             mTvDate.setText(getString(R.string.date));
             mEtDescription.setText("");
             mEtMoney.setText("");

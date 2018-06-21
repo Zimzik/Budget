@@ -22,7 +22,6 @@ import com.example.zimzik.budget.fragments.dialog_fragments.AddIncomeDialogFragm
 
 import java.util.Collections;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -50,22 +49,20 @@ public class IncomesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDB = AppDB.getsInstance(getContext());
-        mAddIncomeDialogFragment = AddIncomeDialogFragment.newInstance(income -> {
-            mDB.getIncomeRepo().insertIncome(income)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> {
-                        Toast.makeText(getContext(), R.string.income_successfully_saved, Toast.LENGTH_LONG).show();
-                        refreshTable();
-                    });
-        });
+        mAddIncomeDialogFragment = AddIncomeDialogFragment.newInstance(income -> mDB.getIncomeRepo().insertIncome(income)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Toast.makeText(getContext(), R.string.income_successfully_saved, Toast.LENGTH_LONG).show();
+                    refreshTable();
+                }));
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_income, container, false);
+        View view =  inflater.inflate(R.layout.fragment_incomes, container, false);
         view.findViewById(R.id.add_money_btn_income).setOnClickListener(v -> addMoneyButtonClick());
         mTvTotalSumm = view.findViewById(R.id.tv_total_summ_income);
         mRecyclerView = view.findViewById(R.id.rv_incomes);
