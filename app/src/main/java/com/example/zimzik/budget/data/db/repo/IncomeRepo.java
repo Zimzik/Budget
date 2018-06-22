@@ -30,4 +30,6 @@ public class IncomeRepo {
     public Single<List<Income>> getAll() {
         return mIncomeDao.getAll();
     }
+
+    public Single<Integer> getAllSum() {return  mIncomeDao.getAllSum();}
 }

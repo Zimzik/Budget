@@ -43,10 +43,10 @@
     <string name="month">Місяць</string>
     <string name="money">Гроші</string>
     <string name="add_new_membership_free">Додати новий збір</string>
-    <string name="info_successfully_saved_on_db">Інформація успішно збережена в БД</string>
+    <string name="info_successfully_saved_on_db">Інформація успішно збережена</string>
     <string name="total">Всього: </string>
     <string name="are_you_shure_to_delete_period">Ви впевнені що хочете видалити цей період?</string>
-    <string name="information_present_on_db">Інформація по даному місяцю вже є в базі даних. Ви хочете її оновити?</string>
+    <string name="information_present_on_db">Інформація по даному місяцю вже існує. Ви хочете її оновити?</string>
     <string name="information_successfully_updated">Інформацію успішно оновлено</string>
     <string name="period_successfully_deleted">Період успішно видалено</string>
     <string name="update">Оновити</string>
@@ -64,4 +64,10 @@
     <string name="expense_succesfully_saved">Витрату успішно видалено</string>
     <string name="member_successfully_delete">Члена успішно видалено</string>
     <string name="sorry_cannot_call">Вибачте, ви не можете зробити виклик</string>
+    <string name="members_quantity">Кількість членів:</string>
+    <string name="passed_the_money_for_the_current_month">Здали гроші за поточний місяць:</string>
+    <string name="all_money_from_members">Всього грошей від членів:</string>
+    <string name="all_money_from_incomes">Всього грошей з прибутків:</string>
+    <string name="sum_of_expenses">Сума витрат:</string>
+    <string name="total_money_in_cash">Всього грошей в касі:</string>
 </resources>

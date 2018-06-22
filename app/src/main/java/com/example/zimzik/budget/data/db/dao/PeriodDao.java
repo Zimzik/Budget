@@ -34,4 +34,10 @@ public interface PeriodDao {
 
     @Query("DELETE FROM Period")
     void deleteAll();
+
+    @Query("SELECT * FROM Period WHERE monthNum LIKE :month")
+    Single<List<Period>> getAllForMonth(int month);
+
+    @Query("SELECT SUM(money) FROM Period")
+    Single<Integer> getTotalSum();
 }

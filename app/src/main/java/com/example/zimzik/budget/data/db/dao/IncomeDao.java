@@ -26,4 +26,7 @@ public interface IncomeDao {
 
     @Query("SELECT * FROM Income")
     Single<List<Income>> getAll();
+
+    @Query("SELECT SUM(summ) FROM Income")
+    Single<Integer> getAllSum();
 }

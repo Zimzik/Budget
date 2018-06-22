@@ -31,4 +31,6 @@ public class ExpenseRepo {
     public Single<List<Expense>> getAll() {
         return mExpenseDao.getAll();
     }
+
+    public Single<Integer> getAllSum() {return  mExpenseDao.getAllSum();}
 }

@@ -7,6 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.example.zimzik.budget.data.db.models.Expense;
+import com.example.zimzik.budget.data.db.models.Income;
 
 import java.util.List;
 
@@ -26,5 +27,8 @@ public interface ExpenseDao {
 
     @Query("SELECT * FROM Expense")
     Single<List<Expense>> getAll();
+
+    @Query("SELECT SUM(summ) FROM Expense")
+    Single<Integer> getAllSum();
 
 }

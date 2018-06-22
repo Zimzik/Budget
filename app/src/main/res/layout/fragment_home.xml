@@ -1,20 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.HomeFragment"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".fragments.HomeFragment">
 
+    <!--Month and year-->
     <TextView
         android:id="@+id/tv_month_and_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
         android:layout_marginTop="16dp"
-        android:text="March, 2018"
+        android:text="Березень, 2018"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_members_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_month_and_year">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:padding="8dp"
+            android:text="@string/members_quantity" />
+
+        <TextView
+            android:id="@+id/tv_members_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="8dp" />
+
+    </android.support.v7.widget.CardView>
+
+    <!--Passed money-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_passed_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cv_members_quantity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:padding="8dp"
+            android:text="@string/passed_the_money_for_the_current_month" />
+
+        <TextView
+            android:id="@+id/tv_passed_money"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="8dp" />
+    </android.support.v7.widget.CardView>
+
+    <!--All money from member-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_all_money_from_members"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cv_passed_money">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:padding="8dp"
+            android:text="@string/all_money_from_members" />
+
+        <TextView
+            android:id="@+id/tv_all_money_from_members"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="8dp" />
+    </android.support.v7.widget.CardView>
+
+    <!--All money from incomes-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_all_money_from_incomes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cv_all_money_from_members">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:padding="8dp"
+            android:text="@string/all_money_from_incomes" />
+
+        <TextView
+            android:id="@+id/tv_all_money_from_incomes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="8dp" />
+    </android.support.v7.widget.CardView>
+
+    <!--Expenses sum-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_sum_expenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cv_all_money_from_incomes">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:padding="8dp"
+            android:text="@string/sum_of_expenses" />
+
+        <TextView
+            android:id="@+id/tv_summ_expenses"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="8dp" />
+    </android.support.v7.widget.CardView>
+
+    <!--Total sum-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_total_sum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cv_sum_expenses">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:padding="8dp"
+            android:text="@string/total_money_in_cash"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_total_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="8dp"
+            android:textColor="#000" />
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

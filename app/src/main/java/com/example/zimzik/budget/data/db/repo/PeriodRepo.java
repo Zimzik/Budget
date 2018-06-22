@@ -35,7 +35,13 @@ public class PeriodRepo {
         return mPeriodDao.getAll();
     }
 
+    public Single<List<Period>> getAllFromMonth(int month) {return mPeriodDao.getAllForMonth(month); }
+
+    public Single<Integer> getAllSum() {return mPeriodDao.getTotalSum();}
+
     public Completable deleteAll() {
         return Completable.fromAction(mPeriodDao::deleteAll);
     }
+
+
 }
