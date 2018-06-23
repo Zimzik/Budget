@@ -6,6 +6,6 @@
         android:icon="@drawable/ic_delete_black_24dp" />
 
     <item
-        android:id="@+id/cmb_to_archive"
-        android:title="@string/to_archive"/>
+        android:id="@+id/cmb_to_actual"
+        android:title="@string/to_actual_members"/>
 </menu>

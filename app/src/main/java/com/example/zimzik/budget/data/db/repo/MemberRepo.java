@@ -26,6 +26,10 @@ public class MemberRepo {
         return mMemberDao.getAllMembers();
     }
 
+    public Single<List<Member>> getAllArchivedMembers() {
+        return mMemberDao.getAllArchivedMembers();
+    }
+
     public Completable update(Member member) {
         return Completable.fromAction(() -> mMemberDao.update(member));
     }

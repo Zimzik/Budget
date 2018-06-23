@@ -1,4 +1,4 @@
-package com.example.zimzik.budget.fragments;
+package com.example.zimzik.budget.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -6,29 +6,21 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.zimzik.budget.R;
-import com.example.zimzik.budget.activities.ArchivedMemberListActivity;
-import com.example.zimzik.budget.activities.CurrentMemberActivity;
-import com.example.zimzik.budget.activities.NewMemberActivity;
-import com.example.zimzik.budget.adapters.MemberListAdapter;
+import com.example.zimzik.budget.adapters.ArchivedMemberListAdapter;
 import com.example.zimzik.budget.data.db.AppDB;
 import com.example.zimzik.budget.data.db.models.Member;
+import com.example.zimzik.budget.fragments.MemberListFragment;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -39,62 +31,45 @@ import java.util.Date;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MemberListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ArchivedMemberListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private MemberListAdapter mMemberListAdapter;
+       private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ArchivedMemberListAdapter mMemberListAdapter;
     private RecyclerView mRecyclerView;
     private AppDB mDB;
     private static final String MEMBER_KEY = "member";
     private static final String DIRNAME = "avatarsDir";
     private static final String TAG = MemberListFragment.class.getSimpleName();
 
-    public MemberListFragment() {
-        // Required empty public constructor
-    }
-
-    public static MemberListFragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        MemberListFragment fragment = new MemberListFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMemberListAdapter = new MemberListAdapter(null, null, null, null);
-        mDB = AppDB.getsInstance(getContext());
-        setHasOptionsMenu(true);
+        setContentView(R.layout.activity_archived_member_list);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(getString(R.string.archive));
+        }
+
+        mSwipeRefreshLayout = findViewById(R.id.swiperefresh);
+        mRecyclerView = findViewById(R.id.rv_members);
+        mMemberListAdapter = new ArchivedMemberListAdapter(null, null, null, null);
+        mDB = AppDB.getsInstance(this);
+        refreshList();
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         refreshList();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //inflate fragment_member_list.xml
-        View view = inflater.inflate(R.layout.fragment_member_list, container, false);
-        //define SwipeRefreshLayout and RecyclerView
-        mSwipeRefreshLayout = view.findViewById(R.id.swiperefresh);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView = view.findViewById(R.id.rv_members);
-        refreshList();
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        return view;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.member_list_menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.archive_member_list_menu, menu);
         MenuItem item = menu.findItem(R.id.search_member);
-        //define SearchView and handle queries from it
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -108,18 +83,13 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
                 return true;
             }
         });
+        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.add_new_member) {
-            startActivity(new Intent(getContext(), NewMemberActivity.class));
-        } else if (id == R.id.archive) {
-            startActivity(new Intent(getContext(), ArchivedMemberListActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
@@ -130,14 +100,14 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
 
     @SuppressLint("CheckResult")
     private void refreshList() {
-        mDB.getMemberRepo().getAllMembers()
+        mDB.getMemberRepo().getAllArchivedMembers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(memberList -> {
                     Collections.sort(memberList, (m1, m2) -> m1.toString().compareToIgnoreCase(m2.toString()));
 
-                    MemberListAdapter listAdapter = new MemberListAdapter(memberList, m -> {
-                        Intent intent = new Intent(getActivity(), CurrentMemberActivity.class);
+                    ArchivedMemberListAdapter listAdapter = new ArchivedMemberListAdapter(memberList, m -> {
+                        Intent intent = new Intent(this, CurrentArchivedMemberActivity.class);
                         Gson gson = new Gson();
                         String myJson = gson.toJson(m);
                         intent.putExtra(MEMBER_KEY, myJson);
@@ -146,27 +116,28 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
                         deleteAvatarImageFromStorage(m);
                         deleteMemberFromDB(m);
                     }, m -> {
-                        m.setActual(0);
+                        m.setActual(1);
                         mDB.getMemberRepo()
                                 .update(m)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(() -> refreshList());
+                                .subscribe(this::refreshList);
                     });
                     mMemberListAdapter = listAdapter;
                     mRecyclerView.setAdapter(listAdapter);
                 }, throwable -> Log.i(TAG, getString(R.string.get_all_members_error)));
     }
 
+
     // delete member from db method
     private void deleteMemberFromDB(Member m) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.are_you_shure) + m.getLastName() + " " + m.getFirstName() + " " + getString(R.string.from_db));
         builder.setPositiveButton(R.string.delete, (dialogInterface, i) -> mDB.getMemberRepo().delete(m)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
-                    Toast.makeText(getContext(), R.string.member_successfully_delete, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.member_successfully_delete, Toast.LENGTH_LONG).show();
                     refreshList();
                 }));
         builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
@@ -178,7 +149,7 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
 
     private void deleteAvatarImageFromStorage(Member member) {
         if (member.getTimeIdent() != 0) {
-            ContextWrapper cw = new ContextWrapper(getContext());
+            ContextWrapper cw = new ContextWrapper(this);
             File directory = cw.getDir(DIRNAME, Context.MODE_PRIVATE);
             File file = new File(directory.getAbsolutePath(), member.getTimeIdent() + ".jpg");
             file.delete();
@@ -195,4 +166,5 @@ public class MemberListFragment extends Fragment implements SwipeRefreshLayout.O
         if (today.get(Calendar.DAY_OF_YEAR) <= dob.get(Calendar.DAY_OF_YEAR)) age--;
         return age;
     }
+
 }

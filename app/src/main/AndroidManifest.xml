@@ -32,11 +32,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".activities.EditMemberActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activities.ArchivedMemberListActivity" />
+        <activity android:name=".activities.CurrentArchivedMemberActivity"></activity>
     </application>
 
 </manifest>

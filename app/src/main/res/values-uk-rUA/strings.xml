@@ -70,4 +70,7 @@
     <string name="all_money_from_incomes">Всього грошей з прибутків:</string>
     <string name="sum_of_expenses">Сума витрат:</string>
     <string name="total_money_in_cash">Всього грошей в касі:</string>
+    <string name="archive">Архів</string>
+    <string name="to_archive">В архів</string>
+    <string name="to_actual_members">В актуальні члени</string>
 </resources>

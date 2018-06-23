@@ -3,6 +3,7 @@ package com.example.zimzik.budget.adapters;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -22,16 +23,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.ViewHolder> implements Filterable {
+public class ArchivedMemberListAdapter extends RecyclerView.Adapter<ArchivedMemberListAdapter.ViewHolder> implements Filterable {
+
     private List<Member> mMemberList;
     private List<Member> mFilteredMembersList;
-    private ClickAction<Member> mOnClickListener;
-    private ClickAction<Member> mOnDeleteMenuClick;
-    private ClickAction<Member> mOnArchiveMenuClick;
+    private MemberListAdapter.ClickAction<Member> mOnClickListener;
+    private MemberListAdapter.ClickAction<Member> mOnDeleteMenuClick;
+    private MemberListAdapter.ClickAction<Member> mOnArchiveMenuClick;
     private Context mContext;
     private static final String DIRNAME = "avatarsDir";
 
-    public MemberListAdapter(List<Member> membersList, ClickAction<Member> onClickListener, ClickAction<Member> onDeleteMenuClick, ClickAction<Member> onArchiveMenuClick) {
+    public ArchivedMemberListAdapter(List<Member> membersList, MemberListAdapter.ClickAction<Member> onClickListener, MemberListAdapter.ClickAction<Member> onDeleteMenuClick, MemberListAdapter.ClickAction<Member> onArchiveMenuClick) {
         this.mMemberList = membersList;
         this.mFilteredMembersList = membersList;
         this.mOnClickListener = onClickListener;
@@ -39,27 +41,27 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         this.mOnArchiveMenuClick = onArchiveMenuClick;
     }
 
-
+    @NonNull
     @Override
-    public MemberListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArchivedMemberListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.member_list_item_view, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MemberListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArchivedMemberListAdapter.ViewHolder holder, int position) {
         final Member member = mFilteredMembersList.get(position);
         holder.name.setText(member.toString());
         holder.age.setText(MemberListFragment.calculateAge(member.getBirthday()) + " " + mContext.getString(R.string.yo));
         loadImageFromStorage(holder.avatar, member);
         holder.digit.setOnClickListener(view -> {
             PopupMenu menu = new PopupMenu(view.getContext(), holder.digit);
-            menu.inflate(R.menu.member_list_context_menu);
+            menu.inflate(R.menu.archived_member_list_context_menu);
             menu.setOnMenuItemClickListener(menuItem -> {
                 if (menuItem.getItemId() == R.id.cmb_delete) {
                     mOnDeleteMenuClick.call(member);
-                } else if (menuItem.getItemId() == R.id.cmb_to_archive) {
+                } else if (menuItem.getItemId() == R.id.cmb_to_actual) {
                     mOnArchiveMenuClick.call(member);
                 }
                 return false;
@@ -134,10 +136,5 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         } else {
             imageView.setImageResource(R.drawable.ic_round_account_button_with_user_inside);
         }
-    }
-
-
-    public interface ClickAction<T> {
-        void call(T object);
     }
 }

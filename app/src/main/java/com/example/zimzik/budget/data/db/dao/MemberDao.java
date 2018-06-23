@@ -21,9 +21,12 @@ public interface MemberDao {
     @Delete
     void delete(Member member);
 
-    @Query("Select * FROM member")
+    @Query("SELECT * FROM member WHERE actual=1")
     Single<List<Member>> getAllMembers();
     //List<Member> getAllMembers();
+
+    @Query(("SELECT * FROM member WHERE actual=0"))
+    Single<List<Member>> getAllArchivedMembers();
 
     @Update
     void update(Member member);

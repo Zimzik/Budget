@@ -70,4 +70,7 @@
     <string name="all_money_from_incomes">All money from incomes:</string>
     <string name="sum_of_expenses">Sum of expenses:</string>
     <string name="total_money_in_cash">Total money in cash:</string>
+    <string name="archive">Archive</string>
+    <string name="to_archive">To archive</string>
+    <string name="to_actual_members">To actual members</string>
 </resources>

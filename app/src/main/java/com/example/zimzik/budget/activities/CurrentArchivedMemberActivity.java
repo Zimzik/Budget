@@ -1,13 +1,14 @@
+
 package com.example.zimzik.budget.activities;
 
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.example.zimzik.budget.R;
 import com.example.zimzik.budget.adapters.ViewPagerAdapter;
 import com.example.zimzik.budget.data.db.AppDB;
 import com.example.zimzik.budget.data.db.models.Member;
+import com.example.zimzik.budget.fragments.CurrentArchMemberFinInfoFragment;
 import com.example.zimzik.budget.fragments.CurrentMemberFinInfoFragment;
 import com.example.zimzik.budget.fragments.CurrentMemberInfoFragment;
 import com.google.gson.Gson;
@@ -25,7 +27,8 @@ import java.io.File;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class CurrentMemberActivity extends AppCompatActivity {
+public class CurrentArchivedMemberActivity extends AppCompatActivity {
+
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ViewPagerAdapter mAdapter;
@@ -34,10 +37,11 @@ public class CurrentMemberActivity extends AppCompatActivity {
     private Gson mGson = new Gson();
     private final String KEY_MEMBER = "member";
     private static final String DIRNAME = "avatarsDir";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_member);
+        setContentView(R.layout.activity_current_archived_member);
 
         mDB = AppDB.getsInstance(this);
         mMember = mGson.fromJson(getIntent().getStringExtra(KEY_MEMBER), Member.class);
@@ -56,17 +60,13 @@ public class CurrentMemberActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_user_menu, menu);
+        getMenuInflater().inflate(R.menu.current_archived_user_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.cm_menu_edit) {
-            Intent intent = new Intent(this, EditMemberActivity.class);
-            intent.putExtra(KEY_MEMBER, mGson.toJson(mMember));
-            startActivityForResult(intent, 1);
-        } else if (item.getItemId() == R.id.cm_menu_delete) {
+        if (item.getItemId() == R.id.cm_menu_delete) {
             onDeleteMemberClick();
         }
         return super.onOptionsItemSelected(item);
@@ -89,10 +89,10 @@ public class CurrentMemberActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        CurrentMemberFinInfoFragment memberFinInfoFragment = CurrentMemberFinInfoFragment.newInstance(mMember);
+        CurrentArchMemberFinInfoFragment currentArchMemberFinInfoFragment = CurrentArchMemberFinInfoFragment.newInstance(mMember);
         CurrentMemberInfoFragment memberInfoFragment = CurrentMemberInfoFragment.newInstance(mMember);
 
-        mAdapter.addFragment(memberFinInfoFragment, getString(R.string.financial_info));
+        mAdapter.addFragment(currentArchMemberFinInfoFragment, getString(R.string.financial_info));
         mAdapter.addFragment(memberInfoFragment, getString(R.string.member_info));
         viewPager.setAdapter(mAdapter);
     }

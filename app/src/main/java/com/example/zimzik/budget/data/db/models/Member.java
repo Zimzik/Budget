@@ -13,6 +13,7 @@ public class Member {
     private String lastName;
     private long birthday;
     private String phoneNumber;
+    private int actual;
     private long timeIdent;
 
     public Member(String firstName, String lastName, long birthday, String phoneNumber, long timeIdent) {
@@ -20,6 +21,7 @@ public class Member {
         this.lastName = lastName;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
+        actual = 1;
         this.timeIdent = timeIdent;
     }
 
@@ -63,6 +65,14 @@ public class Member {
         this.phoneNumber = phoneNumber;
     }
 
+    public int getActual() {
+        return actual;
+    }
+
+    public void setActual(int actual) {
+        this.actual = actual;
+    }
+
     public long getTimeIdent() {
         return timeIdent;
     }
@@ -83,6 +93,7 @@ public class Member {
         Member member = (Member) o;
         return uid == member.uid &&
                 birthday == member.birthday &&
+                actual == member.actual &&
                 timeIdent == member.timeIdent &&
                 Objects.equals(firstName, member.firstName) &&
                 Objects.equals(lastName, member.lastName) &&
@@ -92,6 +103,6 @@ public class Member {
     @Override
     public int hashCode() {
 
-        return Objects.hash(uid, firstName, lastName, birthday, phoneNumber, timeIdent);
+        return Objects.hash(uid, firstName, lastName, birthday, phoneNumber, actual, timeIdent);
     }
 }
