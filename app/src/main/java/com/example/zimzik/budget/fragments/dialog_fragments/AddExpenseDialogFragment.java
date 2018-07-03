@@ -57,13 +57,20 @@ public class AddExpenseDialogFragment extends DialogFragment implements DatePick
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().setTitle(R.string.add_new_expense);
         View view = inflater.inflate(R.layout.dialog_add_new_expense, null);
-
-
 
         mTvDate = view.findViewById(R.id.tv_expense_date);
         mEtDescription = view.findViewById(R.id.et_expense_descr);

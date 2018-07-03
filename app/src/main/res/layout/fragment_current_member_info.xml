@@ -10,8 +10,8 @@
     <!--Member avatar-->
     <com.github.abdularis.civ.AvatarImageView
         android:id="@+id/iv_user_avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         app:state="IMAGE"
         android:src="@drawable/ic_round_account_button_with_user_inside"

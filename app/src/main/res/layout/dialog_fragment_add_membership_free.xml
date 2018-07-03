@@ -12,14 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/months_spinner" />
+        />
 
     <Spinner
         android:id="@+id/months_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/years_spinner"
-        app:layout_constraintRight_toLeftOf="@id/et_membership" />
+        app:layout_constraintLeft_toRightOf="@id/years_spinner" />
 
     <EditText
         android:id="@+id/et_membership"
